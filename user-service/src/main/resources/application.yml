@@ -16,16 +16,51 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-
   application:
     name: user-service
 
-eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: localhost
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 6s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+
+
+#  cloud:
+#    config:
+#      uri: http://localhost:8085/
+#    import:
+#      config-server:
+
+
+#  config:
+#    import: optional:config-server:http://localhost:8085/
+# eureka:
+#   instance:
+#     prefer-ip-address: true
+#     hostname: localhost
+#   client:
+#     register-with-eureka: true
+#     fetch-registry: true
+#     serviceUrl:
+#       defaultZone: http://localhost:8761/eureka/
