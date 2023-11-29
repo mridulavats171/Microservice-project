@@ -19,6 +19,14 @@ spring:
   application:
     name: user-service
 
+#  config:
+#    import: optional:configserver:http://localhost:8085
+
+#  cloud:
+#    config:
+#      uri:
+#        http://localhost:8085:
+
 management:
   health:
     circuitbreakers:
@@ -45,16 +53,14 @@ resilience4j:
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
 
+  rateLimiter:
+    instances:
+      userRateLimiter:
+        limit-refresh-period: 4s
+        limit-for-period: 2
+        timeout-duration: 0s
 
-#  cloud:
-#    config:
-#      uri: http://localhost:8085/
-#    import:
-#      config-server:
 
-
-#  config:
-#    import: optional:config-server:http://localhost:8085/
 # eureka:
 #   instance:
 #     prefer-ip-address: true

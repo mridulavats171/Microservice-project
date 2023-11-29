@@ -12,6 +12,8 @@ import java.util.List;
     public interface RatingClient {
         @GetExchange("/ratings/users/{userId}")
         public List<Rating> getRatingsByUserId(@PathVariable String userId);
+        //gyhinijnm
+
     }
 
 

@@ -29,4 +29,5 @@ public class Users {
 
     @Transient
     private List<Rating> ratings = new ArrayList<>();
+
 }

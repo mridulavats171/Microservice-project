@@ -2,6 +2,7 @@ package com.micro.hotel.hotelservice.Controller;
 
 import com.micro.hotel.hotelservice.Domain.Hotel;
 import com.micro.hotel.hotelservice.Service.HotelService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ import java.util.List;
 
 
         @PostMapping
-        public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel) {
+        public ResponseEntity<Hotel> createHotel(@Valid @RequestBody Hotel hotel) {
             return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.create(hotel));
         }
 
